@@ -1,6 +1,7 @@
 FROM openjdk:21-jdk
 LABEL authors="thijnmens"
 RUN addgroup -S spring && adduser -S spring -G spring
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 USER spring:spring
 ARG DEPENDENCY=target/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
