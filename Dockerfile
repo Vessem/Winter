@@ -1,14 +1,7 @@
 FROM openjdk:21-jdk
 LABEL authors="thijnmens"
-RUN addgroup -S spring
-RUN adduser -S spring -G spring
-RUN mkdir -p target/dependency
-RUN cd target/dependency
-RUN jar -xf ../*.jar
-RUN ../../
+RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","net.vessem.winter.WinterApplication"]
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
