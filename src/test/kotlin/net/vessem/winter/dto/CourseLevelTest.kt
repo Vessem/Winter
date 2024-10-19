@@ -3,11 +3,9 @@ package net.vessem.winter.dto
 import net.vessem.winter.entity.CourseLevelEntity
 import net.vessem.winter.entity.LanguageCardEntity
 import org.junit.Test
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.test.assertEquals
 
-@DataJpaTest
 class CourseLevelTest {
 
 	@Test
