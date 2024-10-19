@@ -1,6 +1,5 @@
 package net.vessem.winter.entity
 
-import net.vessem.winter.dto.User
 import net.vessem.winter.repository.UserRepository
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -24,21 +23,35 @@ class UserEntityTest {
 
 	@Test
 	fun saveUserEntityTest() {
-		val userEntity = User(1, "Test User 1", "test@mail.com", 0).toEntity()
+		val userEntity = UserEntity().also {
+			it.username = "Test User 1"
+			it.email = "test@mail.com"
+			it.level = 0
+		}
+
 		val savedUserEntity = userRepository.saveAndFlush(userEntity)
 
-		assertEquals(1, savedUserEntity.id)
+		assertNotNull(savedUserEntity)
 		assertEquals(userEntity.username, savedUserEntity.username)
+		assertEquals(userEntity.email, savedUserEntity.email)
+		assertEquals(userEntity.level, savedUserEntity.level)
 	}
 
 	@Test
 	fun getUserEntityByIdTest() {
-		val user = User(-1, "Test User 1", "test@mail.com", 0)
-		val savedUserEntity = userRepository.saveAndFlush(user.toEntity())
+		val userEntity = UserEntity().also {
+			it.username = "Test User 1"
+			it.email = "test@mail.com"
+			it.level = 0
+		}
 
+		val savedUserEntity = userRepository.saveAndFlush(userEntity)
 		val foundUserEntity = userRepository.findById(savedUserEntity.id).getOrNull()
+
 		assertNotNull(foundUserEntity)
 		assertEquals(savedUserEntity.id, foundUserEntity.id)
 		assertEquals(savedUserEntity.username, foundUserEntity.username)
+		assertEquals(savedUserEntity.email, foundUserEntity.email)
+		assertEquals(savedUserEntity.level, foundUserEntity.level)
 	}
 }

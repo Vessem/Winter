@@ -19,8 +19,7 @@ open class CourseEntity {
 	@Column(name = "language_course", nullable = false)
 	open lateinit var languageCourse: Language
 
-	@Suppress("JpaAttributeTypeInspection") // False positive
-	@ElementCollection(targetClass = CourseLevelEntity::class, fetch = FetchType.EAGER)
+	@OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
 	@CollectionTable(name = "courses__course_levels", joinColumns = [JoinColumn(name = "course_id")])
 	open var levels: MutableSet<CourseLevelEntity> = mutableSetOf()
 }
