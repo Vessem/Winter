@@ -24,7 +24,7 @@ class UserEntityTest {
 
 	@Test
 	fun saveUserEntityTest() {
-		val userEntity = User(1, "Test User 1").toEntity()
+		val userEntity = User(1, "Test User 1", "test@mail.com", 0).toEntity()
 		val savedUserEntity = userRepository.saveAndFlush(userEntity)
 
 		assertEquals(1, savedUserEntity.id)
@@ -33,12 +33,12 @@ class UserEntityTest {
 
 	@Test
 	fun getUserEntityByIdTest() {
-		val user = User(-1, "Test User 1")
+		val user = User(-1, "Test User 1", "test@mail.com", 0)
 		val savedUserEntity = userRepository.saveAndFlush(user.toEntity())
 
-		val foundUserEntity = userRepository.findById(savedUserEntity.id!!).getOrNull()
+		val foundUserEntity = userRepository.findById(savedUserEntity.id).getOrNull()
 		assertNotNull(foundUserEntity)
-		assertEquals(savedUserEntity.id, foundUserEntity!!.id)
+		assertEquals(savedUserEntity.id, foundUserEntity.id)
 		assertEquals(savedUserEntity.username, foundUserEntity.username)
 	}
 }

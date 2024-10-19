@@ -9,5 +9,8 @@ import java.util.*
 interface UserRepository : JpaRepository<UserEntity, Long>, JpaSpecificationExecutor<UserEntity> {
 
 	@Async
-	fun getUserById(id: Long): Optional<UserEntity>
+	fun getUserEntityById(id: Long): Optional<UserEntity>
+
+	@Async
+	fun getUserEntityByEmailIgnoreCase(email: String): Optional<UserEntity>
 }

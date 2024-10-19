@@ -1,8 +1,8 @@
 package net.vessem.winter.controller
 
-import net.vessem.winter.dto.User
+import net.vessem.winter.dto.LanguageCard
 import net.vessem.winter.exception.NotFoundException
-import net.vessem.winter.repository.UserRepository
+import net.vessem.winter.repository.LanguageCardRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/user")
-class UserController {
+@RequestMapping("/card")
+class LanguageCardController {
 	@Autowired
-	private lateinit var userRepository: UserRepository
+	private lateinit var languageCardRepository: LanguageCardRepository
 
 	/**
-	 * Get a user by their ID
+	 * Get a language card by its ID
 	 *
-	 * @param id the ID of a user
-	 * @see User
+	 * @param id the ID of the card
+	 * @see LanguageCard
 	 */
 	@GetMapping("/{id}")
-	fun getUserById(@PathVariable id: String): ResponseEntity<User> {
+	fun getLanguageCardById(@PathVariable id: String): ResponseEntity<LanguageCard> {
 		try {
-			val user = userRepository.getUserEntityById(id.toLong())
-			if (user.isEmpty) throw NotFoundException("User not found")
+			val languageCardEntity = languageCardRepository.getLanguageCardEntityById(id.toLong())
+			if (languageCardEntity.isEmpty) throw NotFoundException("LanguageCard not found")
 
-			return ResponseEntity.ok(User.fromEntity(user.get()))
+			return ResponseEntity.ok(LanguageCard.fromEntity(languageCardEntity.get()))
 		} catch (e: NumberFormatException) {
 			return ResponseEntity.badRequest().build()
 		} catch (e: NotFoundException) {
