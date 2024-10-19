@@ -2,7 +2,7 @@ package net.vessem.winter.dto
 
 import net.vessem.winter.entity.CourseLevelEntity
 import net.vessem.winter.entity.LanguageCardEntity
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.test.assertEquals
 
