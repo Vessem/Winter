@@ -2,9 +2,11 @@ package net.vessem.winter.dto
 
 import net.vessem.winter.entity.UserEntity
 import org.junit.Test
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.test.assertEquals
 
+@DataJpaTest
 class UserTest {
 
 	@Test
