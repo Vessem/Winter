@@ -2,7 +2,6 @@ package net.vessem.winter.controller
 
 import net.vessem.winter.dto.User
 import net.vessem.winter.exception.BadRequestException
-import net.vessem.winter.repository.UserRepository
 import net.vessem.winter.services.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
@@ -17,8 +16,6 @@ import org.springframework.web.servlet.view.RedirectView
 @Controller
 @RequestMapping("/auth")
 class AuthController {
-	@Autowired
-	private lateinit var userRepository: UserRepository
 
 	@Autowired
 	private lateinit var authService: AuthService

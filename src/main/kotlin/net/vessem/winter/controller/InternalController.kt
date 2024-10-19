@@ -79,7 +79,7 @@ class InternalController {
 
 		val courseEntity = courseRepository.saveAndFlush(CourseEntity().also {
 			it.languageFrom = Language.ENG
-			it.languageCourse = Language.DUT
+			it.languageCourse = Language.NLD
 			it.levels = courseLevelEntities
 		})
 

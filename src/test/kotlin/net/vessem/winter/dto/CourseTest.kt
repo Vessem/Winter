@@ -13,7 +13,7 @@ class CourseTest {
 	fun toEntityTest() {
 		sameFieldsTest()
 		val course = Course(
-			1, Language.ENG, Language.DUT, setOf(
+			1, Language.ENG, Language.NLD, setOf(
 				CourseLevel(
 					1, "Level 1", setOf(
 						LanguageCard(1, "hello", "hallo"),
@@ -48,7 +48,7 @@ class CourseTest {
 		val courseEntity = CourseEntity().also { courseEntity ->
 			courseEntity.id = 1
 			courseEntity.languageFrom = Language.ENG
-			courseEntity.languageCourse = Language.DUT
+			courseEntity.languageCourse = Language.NLD
 			courseEntity.levels = mutableSetOf(
 				CourseLevelEntity().also { courseLevelEntity ->
 					courseLevelEntity.id = 1

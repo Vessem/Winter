@@ -6,6 +6,6 @@ package net.vessem.winter.dto
  */
 enum class Language {
 	ENG,
-	DUT,
+	NLD,
 	JPN
 }

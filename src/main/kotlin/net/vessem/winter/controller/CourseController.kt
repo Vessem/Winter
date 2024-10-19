@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import java.util.*
+import kotlin.jvm.optionals.getOrDefault
 
 @Controller
 @RequestMapping("/course")
@@ -28,14 +30,14 @@ class CourseController {
 	@GetMapping("/{id}")
 	fun getCourseById(
 		@PathVariable id: String,
-		@RequestParam("include_levels") includeLevels: Boolean
+		@RequestParam("include_levels") includeLevels: Optional<Boolean>
 	): ResponseEntity<Course> {
 		try {
 			val courseEntity = courseRepository.getCourseEntityById(id.toLong())
 			if (courseEntity.isEmpty) throw NotFoundException("Course not found")
 
 			val course = Course.fromEntity(courseEntity.get())
-			if (!includeLevels) course.levels = emptySet()
+			if (!includeLevels.getOrDefault(false)) course.levels = emptySet()
 
 			return ResponseEntity.ok(course)
 		} catch (e: NumberFormatException) {
