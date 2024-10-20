@@ -30,4 +30,22 @@ class AuthControllerTest {
 			.andDo { print(it) }
 			.andExpect(status().is3xxRedirection)
 	}
+
+	@Test
+	fun authUserWithMissingParams() {
+		this.mockMvc.perform(
+			get("/auth/google/callback")
+		)
+			.andDo { print(it) }
+			.andExpect(status().isBadRequest)
+	}
+
+	@Test
+	fun authUserWithBadParams() {
+		this.mockMvc.perform(
+			get("/auth/google/callback?code=CODE&scope=SCOPE&authuser=AUTHUSER&prompt=PROMPT")
+		)
+			.andDo { print(it) }
+			.andExpect(status().isBadRequest)
+	}
 }

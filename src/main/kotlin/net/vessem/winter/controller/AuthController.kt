@@ -40,6 +40,8 @@ class AuthController {
 	): ResponseEntity<User> {
 		try {
 			val tokens = authService.getGoogleAuthToken(code)
+			if (tokens.isEmpty()) throw BadRequestException("No token from google")
+
 			val user = authService.getProfileFromGoogle(tokens.getOrDefault("access_token", "").toString())
 
 			val response = ResponseEntity.ok(user)

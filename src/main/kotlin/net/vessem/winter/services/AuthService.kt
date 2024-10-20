@@ -50,6 +50,8 @@ class AuthService {
 	}
 
 	fun getProfileFromGoogle(accessToken: String): User {
+		if (accessToken.isBlank()) throw BadRequestException("access token is blank")
+
 		val restTemplate = RestTemplate()
 		val httpHeaders = HttpHeaders()
 		httpHeaders.setBearerAuth(accessToken)
