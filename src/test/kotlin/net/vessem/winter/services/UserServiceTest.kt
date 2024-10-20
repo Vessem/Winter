@@ -13,6 +13,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import java.sql.Date
 
 import java.util.*
 import kotlin.test.assertEquals
@@ -38,11 +39,14 @@ class UserServiceTest {
 		json.addProperty("given_name", "test")
 		json.addProperty("family_name", "user")
 
+		val lastUpdated = Date(System.currentTimeMillis())
+
 		given(userRepository.getUserEntityByEmailIgnoreCase(json.get("email").asString)).willReturn(Optional.of(
 			UserEntity().also {
+				it.id = 1
 				it.email = "test@mail.com"
 				it.username = json.get("given_name").asString + json.get("family_name").asString
-				it.level = 0
+				it.lastUpdated = lastUpdated
 			}
 		))
 
@@ -50,7 +54,7 @@ class UserServiceTest {
 
 		assertEquals(json.get("email").asString, user.email)
 		assertEquals(json.get("given_name").asString + json.get("family_name").asString, user.username)
-		assertEquals(0, user.level)
+		assertEquals(lastUpdated, user.lastUpdated)
 	}
 
 	@Test
@@ -60,13 +64,18 @@ class UserServiceTest {
 		json.addProperty("given_name", "test")
 		json.addProperty("family_name", "user")
 
+		val lastUpdated = Date(System.currentTimeMillis())
+
 		given(userRepository.getUserEntityByEmailIgnoreCase(json.get("email").asString)).willReturn(Optional.empty())
-		`when`(userRepository.saveAndFlush(Mockito.any(UserEntity::class.java))).thenAnswer { it.getArgument(0) }
+		`when`(userRepository.saveAndFlush(Mockito.any(UserEntity::class.java))).thenAnswer { it.getArgument<UserEntity>(0).also { user ->
+			user.id = 1
+			user.lastUpdated = lastUpdated
+		} }
 
 		val user = userService.getOrCreateNewUser(json)
 
 		assertEquals(json.get("email").asString, user.email)
 		assertEquals(json.get("given_name").asString + " " + json.get("family_name").asString, user.username)
-		assertEquals(0, user.level)
+		assertEquals(lastUpdated, user.lastUpdated)
 	}
 }

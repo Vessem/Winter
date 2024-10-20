@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import java.sql.Date
 import kotlin.jvm.optionals.getOrNull
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -26,7 +27,7 @@ class UserEntityTest {
 		val userEntity = UserEntity().also {
 			it.username = "Test User 1"
 			it.email = "test@mail.com"
-			it.level = 0
+			it.lastUpdated = Date(System.currentTimeMillis())
 		}
 
 		val savedUserEntity = userRepository.saveAndFlush(userEntity)
@@ -34,7 +35,6 @@ class UserEntityTest {
 		assertNotNull(savedUserEntity)
 		assertEquals(userEntity.username, savedUserEntity.username)
 		assertEquals(userEntity.email, savedUserEntity.email)
-		assertEquals(userEntity.level, savedUserEntity.level)
 	}
 
 	@Test
@@ -42,7 +42,7 @@ class UserEntityTest {
 		val userEntity = UserEntity().also {
 			it.username = "Test User 1"
 			it.email = "test@mail.com"
-			it.level = 0
+			it.lastUpdated = Date(System.currentTimeMillis())
 		}
 
 		val savedUserEntity = userRepository.saveAndFlush(userEntity)
@@ -52,6 +52,5 @@ class UserEntityTest {
 		assertEquals(savedUserEntity.id, foundUserEntity.id)
 		assertEquals(savedUserEntity.username, foundUserEntity.username)
 		assertEquals(savedUserEntity.email, foundUserEntity.email)
-		assertEquals(savedUserEntity.level, foundUserEntity.level)
 	}
 }

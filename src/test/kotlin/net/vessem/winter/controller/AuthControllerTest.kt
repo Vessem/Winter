@@ -1,6 +1,8 @@
 package net.vessem.winter.controller
 
+import net.vessem.winter.repository.UserRepository
 import net.vessem.winter.services.AuthService
+import net.vessem.winter.services.JwtService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,8 +21,16 @@ class AuthControllerTest {
 	private lateinit var mockMvc: MockMvc
 
 	@MockBean
-	@Suppress("unused")// Not used, but test won't run without it
+	@Suppress("unused") // Not used, but test won't run without it
 	private lateinit var authService: AuthService
+
+	@MockBean
+	@Suppress("unused") // Not used, but test won't run without it
+	private lateinit var jwtService: JwtService
+
+	@MockBean
+	@Suppress("unused") // Not used, but test won't run without it
+	private lateinit var userRepository: UserRepository
 
 	@Test
 	fun authUserWithGoogleRedirects() {

@@ -1,7 +1,8 @@
 package net.vessem.winter.entity
 
 import jakarta.persistence.*
-import org.hibernate.annotations.ColumnDefault
+import org.springframework.data.annotation.LastModifiedDate
+import java.sql.Date
 
 @Entity(name = "user")
 @Table(name = "users")
@@ -17,7 +18,7 @@ open class UserEntity {
 	@Column(name = "email", nullable = false, unique = true)
 	open lateinit var email: String
 
-	@ColumnDefault("0")
-	@Column(name = "level", nullable = false)
-	open var level: Int = 0
+	@LastModifiedDate
+	@Column(name = "last_updated", nullable = false)
+	open lateinit var lastUpdated: Date
 }

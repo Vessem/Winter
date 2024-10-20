@@ -2,13 +2,14 @@ package net.vessem.winter.dto
 
 import lombok.Data
 import net.vessem.winter.entity.UserEntity
+import java.sql.Date
 
 @Data
 data class User(
 	var id: Long = -1,
 	var username: String,
 	var email: String,
-	var level: Int = 0
+	var lastUpdated: Date
 ) {
 
 	fun toEntity(): UserEntity {
@@ -16,7 +17,7 @@ data class User(
 		entity.id = id
 		entity.username = username
 		entity.email = email
-		entity.level = level
+		entity.lastUpdated = lastUpdated
 		return entity
 	}
 
@@ -26,7 +27,7 @@ data class User(
 				userEntity.id,
 				userEntity.username,
 				userEntity.email,
-				userEntity.level
+				userEntity.lastUpdated
 			)
 		}
 	}

@@ -30,7 +30,6 @@ class UserService {
 			val newUserEntity = UserEntity().also {
 				it.email = userdata["email"].asString
 				it.username = userdata["given_name"].asString + " " + userdata["family_name"].asString
-				it.level = 0
 			}
 			userEntity = Optional.of(userRepository.saveAndFlush(newUserEntity))
 		}

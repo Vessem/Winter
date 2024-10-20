@@ -12,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.sql.Date
 import java.util.*
 
 @ExtendWith(SpringExtension::class)
@@ -47,7 +48,7 @@ class UserControllerTest {
 		val userEntity = UserEntity().also {
 			it.username = "Test User 1"
 			it.email = "test@mail.com"
-			it.level = 0
+			it.lastUpdated = Date(System.currentTimeMillis())
 		}
 
 		given(userRepository.getUserEntityById(1)).willReturn(Optional.of(userEntity))
